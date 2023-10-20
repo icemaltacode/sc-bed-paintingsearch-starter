@@ -15,8 +15,8 @@ const docClient = DynamoDBDocumentClient.from(
 
 const fetchNext = async (searchTerm, nextToken = '') => {
   const commandInput = {
-    Statement: 'SELECT * FROM "sc-bed_paintings" WHERE contains(artist_name, ?)',
-    Parameters: [String(searchTerm)]
+    Statement: 'SELECT * FROM "sc-bed_paintings" WHERE contains(artist_name, ?) or contains(work_name, ?)',
+    Parameters: [String(searchTerm), String(searchTerm)]
   };
   if (nextToken !== '') {
     commandInput.NextToken = nextToken;
